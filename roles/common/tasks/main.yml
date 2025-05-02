@@ -22,13 +22,13 @@
     src: hosts.j2
     dest: /etc/hosts
 
-- name: make SElinux permissive
+- name: make SElinux permissive (persistent)
   ansible.builtin.replace:
     path: /etc/selinux/config
     regexp: '^SELINUX=enforcing'
     replace: 'SELINUX=permissive'
 
-- name: Put SELinux in permissive mode, logging actions that would be blocked.
+- name: Temporarily set SELinux to permissive (no reboot)
   ansible.posix.selinux:
     policy: targeted
     state: permissive
