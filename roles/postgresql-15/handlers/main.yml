@@ -1,0 +1,8 @@
+---
+# handlers file for postgresql-15
+- name: restart postgresql
+  ansible.builtin.systemd:
+    state: restarted
+    daemon_reload: true
+    name: postgresql
+    enabled: true

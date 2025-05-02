@@ -1,0 +1,34 @@
+---
+# tasks file for haproxy
+- name: Install HAProxy
+  ansible.builtin.yum:
+    name: haproxy
+    state: present
+
+- name: Backup the original haproxy.cfg file
+  ansible.builtin.copy:
+    src: /etc/haproxy/haproxy.cfg
+    dest: /etc/haproxy/haproxy.cfg.bak
+    remote_src: yes
+
+- name: Fix HAProxy config.
+  ansible.builtin.template:
+    src: haproxy.j2
+    dest: /etc/haproxy/haproxy.cfg
+  notify: restart haproxy
+
+- name: Enable Kernel Binding Restrictions
+  ansible.posix.sysctl:
+    name: "{{ item }}"
+    value: '1'
+    state: present
+    reload: yes
+  loop:
+    - net.ipv4.ip_forward
+    - net.ipv4.ip_nonlocal_bind
+
+- name: Start and enable HAProxy service
+  ansible.builtin.systemd:
+    state: started
+    daemon_reload: true
+    name: haproxy

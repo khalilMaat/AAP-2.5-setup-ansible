@@ -1,0 +1,25 @@
+---
+# vars file for postgresql-15
+postgresql_repo_url: https://download.postgresql.org/pub/repos/yum/reporpms/EL-9-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+#new_domain: 10.10.10.0/24
+new_domain: 0.0.0.0/0
+
+# Create DB vars
+db_host: database.onetech.com
+db_name:
+  - automationgateway
+  - awx
+
+# Create users VARs
+
+db_users:
+  - user: automationgateway
+    password: "redhat123"
+    expires: infinity
+    db: automationgateway
+    privs: ALL
+  - user: awx
+    password: "redhat123"
+    expires: infinity
+    db: awx
+    privs: ALL

@@ -1,0 +1,77 @@
+# This is the AAP enterprise installer inventory file
+# Please consult the docs if you're unsure what to add
+# For all optional variables please consult the Red Hat documentation:
+# https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/rpm_installation
+
+# This section is for your AAP Gateway host(s)
+# -----------------------------------------------------
+[automationgateway]
+{% for gateway in gateway_hosts %}
+{{ gateway.name }} ansible_connection=ssh
+{% endfor %}
+
+# This section is for your AAP Controller host(s)
+# -----------------------------------------------------
+[automationcontroller]
+{% for controller in automationcontroller_hosts %}
+{{ controller.name }} node_type={{ controller.node_type }} receptor_listener={{ controller.receptor_listener }}
+{% endfor %}
+
+
+[database]
+{{ database_hostname }}
+
+# This section is for your AAP Execution host(s)
+# -----------------------------------------------------
+
+# This section is for your AAP Automation Hub host(s)
+# -----------------------------------------------------
+
+# This section is for your AAP EDA Controller host(s)
+# ----------------------------------------------------
+
+[all:vars]
+
+# Common variables
+# https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/rpm_installation/appendix-inventory-files-vars#ref-general-inventory-variables
+# -----------------------------------------------------
+registry_url='{{ registry_url }}'
+mail="!vault |\n          $ANSIBLE_VAULT;1.1;AES256\n          35376532316361326364653636333065663431343862366437343437643136376161653735323034\n          3433356165656536653230396637366633376262616533360a376537386630346533306130666630\n          36333565623332353035383163623330633835393831373564323139646136653361336434636337\n          6436316435376532610a663661666530626330353134646435383266363936303636656533633931\n          62353366626366363061323333336166636462396462313438663437356463373662"
+pass="!vault |\n          $ANSIBLE_VAULT;1.1;AES256\n          34373963613631346433343663373335353236346637323864316663643937386332643034636463\n          6261613432323261623735363733336561623161313265640a313034666332643538346566343235\n          61326530623432353266343266306236306438336630343036316665666239396235393436633835\n          6261363330366639640a396438393634336661343466656430376539636633336365353938656130\n          3834"
+
+registry_username="{% raw %}{{ mail }}{% endraw %}"
+registry_password="{% raw %}{{ pass }}{% endraw %}"
+
+ansible_user={{ ansible_user }}
+ansible_ssh_private_key_file=/home/cloud-user/.ssh/id_rsa
+receptor_listener_port={{ receptor_listener_port }}
+
+# AAP Gateway
+# https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/rpm_installation/appendix-inventory-files-vars#ref-gateway-variables
+# -----------------------------------------------------
+automationgateway_admin_password='{{ automationgateway_admin_password }}'
+automationgateway_pg_host='{{ automationgateway_pg_host }}'
+automationgateway_pg_database='{{ automationgateway_pg_database }}'
+automationgateway_pg_username='{{ automationgateway_pg_username }}'
+automationgateway_pg_password='{{ automationgateway_pg_password }}'
+automationgateway_pg_port={{ automationgateway_pg_port }}
+automationgateway_pg_sslmode='{{ automationgateway_pg_sslmode }}'
+#automationgateway_main_url = '{{ LB_vip }}'
+# AAP Controller
+# https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/rpm_installation/appendix-inventory-files-vars#ref-controller-variables
+# -----------------------------------------------------
+admin_password='{{ admin_password }}'
+pg_host='{{ pg_host }}'
+pg_database='{{ pg_database }}'
+pg_username='{{ pg_username }}'
+pg_password='{{ pg_password }}'
+pg_port={{ pg_port }}
+pg_sslmode='{{ pg_sslmode }}'
+redis_mode={{ redis_mode }}
+
+# AAP Automation Hub
+# https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/rpm_installation/appendix-inventory-files-vars#ref-hub-variables
+
+# -----------------------------------------------------
+# https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/rpm_installation/appendix-inventory-files-vars#event-driven-ansible-controller
+# -----------------------------------------------------

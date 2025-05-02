@@ -1,0 +1,4 @@
+---
+# vars file for ssh
+login_user: cloud-user
+controller_hostname: controller.onetech.com

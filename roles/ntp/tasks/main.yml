@@ -1,0 +1,30 @@
+---
+# tasks file for ntp
+- name: Install chrony package
+  ansible.builtin.yum:
+    name: chrony
+    state: present
+
+
+- name: Start and enable chronyd service
+  ansible.builtin.systemd:
+    name: chronyd
+    state: started
+    enabled: true
+    daemon_reload: true
+
+- name: Fix Config chrony on /etc/chrony.conf
+  ansible.builtin.replace:
+    path: /etc/chrony.conf
+    regexp: '^pool 2.rhel.pool.ntp.org iburst'
+    replace: |
+      server 0.rhel.pool.ntp.org iburst
+      server 1.rhel.pool.ntp.org iburst
+      server 2.rhel.pool.ntp.org iburst
+      server 3.rhel.pool.ntp.org iburst
+  notify: restart chronyd
+
+- name: Set timezone to Africa/tunis.
+  community.general.timezone:
+    name: Africa/Tunis
+
