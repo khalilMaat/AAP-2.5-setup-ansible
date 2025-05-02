@@ -1,0 +1,31 @@
+---
+# tasks file for firewalld
+- name: Install firewalld package.
+  ansible.builtin.yum:
+    name: firewalld
+    state: present
+
+- name: Start and enable firewalld service.
+  ansible.builtin.systemd:
+    state: started
+    daemon_reload: true
+    name: firewalld
+    enabled: true
+
+- name: Open ports service firewall-cmd.
+  ansible.posix.firewalld:
+    port: "{{ item }}"
+    state: enabled
+    permanent: true
+    immediate: true
+  loop: "{{ ports }}"
+  notify: restart firwalld
+
+- name: Open services firewall-cmd.
+  ansible.posix.firewalld:
+    service: "{{ item }}"
+    state: enabled
+    permanent: true
+    immediate: true
+  loop: "{{ services }}"
+  notify: restart firwalld

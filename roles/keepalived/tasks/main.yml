@@ -1,0 +1,33 @@
+---
+# tasks file for keepalived
+- name: Install Keepalived
+  ansible.builtin.yum:
+    name: keepalived
+    state: present
+
+- name: Backup the original keepalived.conf file
+  ansible.builtin.copy:
+    src: /etc/keepalived/keepalived.conf
+    dest: /etc/keepalived/keepalived.conf.bak
+    remote_src: yes
+
+
+- name: Fix Keeaplived MASTER config.
+  ansible.builtin.template:
+    src: master.j2
+    dest: /etc/keepalived/keepalived.conf
+  when: inventory_hostname == "gateway1.onetech.com"
+  notify: restart keepalived
+
+- name: Fix Keeaplived BACKUP config.
+  ansible.builtin.template:
+    src: backup.j2
+    dest: /etc/keepalived/keepalived.conf
+  when: inventory_hostname == "gateway2.onetech.com"
+  notify: restart keepalived
+      
+- name: Start and enable Keepalived service
+  ansible.builtin.systemd:
+    state: started
+    daemon_reload: true
+    name: keepalived

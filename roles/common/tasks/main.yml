@@ -1,0 +1,35 @@
+---
+# tasks file for common
+- name: Update nodes.
+  ansible.builtin.yum:
+    name: '*'
+    state: latest
+
+- name: Install common packages
+  ansible.builtin.yum:
+    name:
+      - lsof
+      - bash-completion
+
+- name: Enable a BaseOS and AppStream repository.
+  community.general.rhsm_repository:
+    name:
+      - rhel-9-for-x86_64-baseos-rpms
+      - rhel-9-for-x86_64-appstream-rpms
+        
+- name: Create template /etc/hosts.
+  ansible.builtin.template:
+    src: hosts.j2
+    dest: /etc/hosts
+
+- name: make SElinux permissive
+  ansible.builtin.replace:
+    path: /etc/selinux/config
+    regexp: '^SELINUX=enforcing'
+    replace: 'SELINUX=permissive'
+
+- name: Put SELinux in permissive mode, logging actions that would be blocked.
+  ansible.posix.selinux:
+    policy: targeted
+    state: permissive
+

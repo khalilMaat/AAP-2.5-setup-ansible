@@ -1,0 +1,21 @@
+---
+# tasks file for ssh
+- name: Create a 2048-bit SSH key.
+  ansible.builtin.user:
+    name: "{{ login_user }}"
+    generate_ssh_key: yes
+    ssh_key_bits: 2048
+    ssh_key_file: .ssh/id_rsa
+  when: inventory_hostname == controller_hostname
+
+- name: Read the public key from controller.onetech.com
+  ansible.builtin.command: cat /home/{{ login_user }}/.ssh/id_rsa.pub
+  register: ssh_public_key
+  delegate_to: "{{ controller_hostname }}"
+  run_once: true
+
+- name: Add the public key to authorized_keys on all nodes
+  ansible.posix.authorized_key:
+    user: "{{ login_user }}"
+    state: present
+    key: "{{ ssh_public_key.stdout }}"

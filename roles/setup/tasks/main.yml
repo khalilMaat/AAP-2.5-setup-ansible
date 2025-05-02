@@ -1,0 +1,37 @@
+---
+# tasks file for setup
+- name: Include credentials
+  ansible.builtin.include_vars:
+    file: ../vars/credentials.yml
+
+- name: Generate AAP inventory file
+  ansible.builtin.template:
+    src: inventory.j2
+    dest: /opt/ansible-automation-platform/installer/inventory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+
+- name: Fix permission
+  ansible.builtin.file:
+    path: /opt/ansible-automation-platform
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    recurse: yes
+
+- name: Change RAM
+  ansible.builtin.lineinfile:
+    path: /opt/ansible-automation-platform/installer/collections/ansible_collections/ansible/automation_platform_installer/roles/preflight/defaults/main.yml
+    regexp: '^required_ram: 7400'
+    line: 'required_ram: 2400'
+
+- name: Execute the setup.sh script with custom environment variables
+  ansible.builtin.shell: /opt/ansible-automation-platform/installer/setup.sh
+  delegate_to: controller.onetech.com
+  remote_user: "{{ ansible_user }}"
+  environment:
+    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"  # Adjust as needed
+    ANSIBLE_BECOME_METHOD: 'sudo'
+    ANSIBLE_BECOME: 'True'
+    ANSIBLE_HOST_KEY_CHECKING: 'False'
+    ANSIBLE_BECOME_USER: 'root'
+  notify: restart LoadBalacner

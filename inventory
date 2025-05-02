@@ -1,0 +1,14 @@
+[gateway]
+gateway1.onetech.com
+gateway2.onetech.com
+
+[controller]
+controller.onetech.com
+
+[database]
+database.onetech.com
+
+[Loadbalancer]
+gateway1.onetech.com
+gateway2.onetech.com
+

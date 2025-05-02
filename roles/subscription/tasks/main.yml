@@ -1,0 +1,13 @@
+---
+# tasks file for subscription
+- name: Register user system.
+  community.general.redhat_subscription:
+    state: present
+    username: "{{ username }}"
+    password: "{{ password }}"
+    auto_attach: true
+
+- name: Upgrade all packages
+  ansible.builtin.yum:
+    name: '*'
+    state: latest

@@ -1,0 +1,7 @@
+---
+# tasks file for aap-2.5_install
+- name: Install AAP 2.5
+  ansible.builtin.dnf:
+    name: ansible-automation-platform-installer
+    enablerepo: ansible-automation-platform-2.5-for-rhel-9-x86_64-rpms
+    state: present

@@ -1,0 +1,30 @@
+---
+- name: Playbook Prepare all nodes
+  hosts: all
+  gather_facts: true
+  roles:
+    #- subscription
+    - common
+    - firewalld
+    - ntp
+    - ssh
+
+#- name: Install PostgreSQL on Controller
+#  hosts: controller
+#  gather_facts: true
+#  roles:
+#    - postgresql-15
+
+- name: Install AAP on Controller
+  hosts: controller
+  gather_facts: true
+  roles:
+    - aap-2.5_install
+    - setup
+
+- name: Install HAProxy and Keepalived LoadBalancer nodes
+  hosts: Loadbalancer
+  gather_facts: true
+  roles:
+    - keepalived
+    - haproxy
