@@ -5,4 +5,5 @@
     state: restarted
     daemon_reload: true
     name: keepalived
+    enabled: true
 
