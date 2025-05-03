@@ -32,7 +32,7 @@ automationgateway_pg_username: "automationgateway"
 #automationgateway_pg_password: "redhat123"
 automationgateway_pg_port: 5432
 automationgateway_pg_sslmode: "prefer"
-LB_vip: "https://vip-aap"
+automationgateway_main_url: "https://aap-vip"
 
 # Other settings
 ansible_user: "cloud-user"
