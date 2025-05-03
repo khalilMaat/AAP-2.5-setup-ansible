@@ -31,3 +31,4 @@
     state: started
     daemon_reload: true
     name: keepalived
+    enabled: true

@@ -34,7 +34,7 @@ vrrp_instance VI_1 {
     }
 
     virtual_ipaddress {
-        10.0.0.94/24
+        {{ aap_vip }}/24
     }
     track_script {
         chk_haproxy

@@ -1,2 +1,4 @@
 ---
 # vars file for keepalived
+
+aap_vip: 10.0.0.94
