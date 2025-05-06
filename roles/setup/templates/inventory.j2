@@ -18,8 +18,8 @@
 {% endfor %}
 
 
-[database]
-{{ database_hostname }}
+#[database]
+#{{ database_hostname }}
 
 # This section is for your AAP Execution host(s)
 # -----------------------------------------------------
@@ -45,6 +45,8 @@ registry_password="{% raw %}{{ pass }}{% endraw %}"
 ansible_user={{ ansible_user }}
 ansible_ssh_private_key_file=/home/cloud-user/.ssh/id_rsa
 receptor_listener_port={{ receptor_listener_port }}
+#postgresql_admin_username=postgres
+#postgresql_admin_password=<set your own>
 
 # AAP Gateway
 # https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/rpm_installation/appendix-inventory-files-vars#ref-gateway-variables
@@ -56,7 +58,8 @@ automationgateway_pg_username='{{ automationgateway_pg_username }}'
 automationgateway_pg_password='{{ automationgateway_pg_password }}'
 automationgateway_pg_port={{ automationgateway_pg_port }}
 automationgateway_pg_sslmode='{{ automationgateway_pg_sslmode }}'
-automationgateway_main_url = '{{ automationgateway_main_url }}'
+#automationgateway_main_url = '{{ automationgateway_main_url }}'
+
 # AAP Controller
 # https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/rpm_installation/appendix-inventory-files-vars#ref-controller-variables
 # -----------------------------------------------------

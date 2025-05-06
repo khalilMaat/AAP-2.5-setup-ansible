@@ -12,3 +12,6 @@ database.onetech.com
 gateway1.onetech.com
 gateway2.onetech.com
 
+[aapservers:children]
+gateway
+controller

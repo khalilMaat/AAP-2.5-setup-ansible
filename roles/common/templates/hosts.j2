@@ -2,7 +2,8 @@
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
 
 # AAP project
-{% for host in groups['all'] %}
+{% for host in groups['aapservers'] %}
 {{ hostvars[host].ansible_facts['eth1']['ipv4']['address'] }} {{ host }}
 {% endfor %}
-10.0.0.94 aap-vip
+{{ aap_vip }} aap-vip.com
+{{ db_vip }} {{ groups['database'][0] }} 

@@ -4,4 +4,4 @@ gateways:
   - gateway1.onetech.com
   - gateway2.onetech.com
 
-aap_vip: 10.0.0.94
+#aap_vip: 10.0.0.94

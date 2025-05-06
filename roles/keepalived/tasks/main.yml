@@ -16,14 +16,14 @@
   ansible.builtin.template:
     src: master.j2
     dest: /etc/keepalived/keepalived.conf
-  when: inventory_hostname == "gateway1.onetech.com"
+  when: inventory_hostname == groups['gateway'][0]
   notify: restart keepalived
 
 - name: Fix Keeaplived BACKUP config.
   ansible.builtin.template:
     src: backup.j2
     dest: /etc/keepalived/keepalived.conf
-  when: inventory_hostname == "gateway2.onetech.com"
+  when: inventory_hostname == groups['gateway'][1]
   notify: restart keepalived
       
 - name: Start and enable Keepalived service

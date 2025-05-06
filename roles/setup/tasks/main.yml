@@ -25,7 +25,7 @@
     line: 'required_ram: 2400'
 
 - name: Execute the setup.sh script with custom environment variables
-  ansible.builtin.shell: /opt/ansible-automation-platform/installer/setup.sh -- -vvv
+  ansible.builtin.shell: /opt/ansible-automation-platform/installer/setup.sh
   delegate_to: controller.onetech.com
   remote_user: "{{ ansible_user }}"
   environment:
@@ -34,4 +34,3 @@
     ANSIBLE_BECOME: 'True'
     ANSIBLE_HOST_KEY_CHECKING: 'False'
     ANSIBLE_BECOME_USER: 'root'
-  notify: restart LoadBalacner

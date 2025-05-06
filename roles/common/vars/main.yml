@@ -1,2 +1,5 @@
 ---
 # vars file for common
+
+#aap_vip: 10.0.0.94
+#db_vip: 10.112.62.25
