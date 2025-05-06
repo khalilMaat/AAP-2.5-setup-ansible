@@ -23,3 +23,6 @@ Uses roles to maintain clean, reusable, and testable code structure
 
 Start playbook:
 > ansible-playbook setup-aap.yml --vault-password-file pass.txt
+
+⚙️ License
+Khalil Maatoug 2025 OTBS
