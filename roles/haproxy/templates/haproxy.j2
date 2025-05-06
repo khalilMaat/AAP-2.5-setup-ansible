@@ -82,6 +82,6 @@ listen stats
 #---------------------------------------------------------------------
 backend app
    balance roundrobin
-	 {% for gateway in gateways %}
-	 server  AAP{{ loop.index }} {{ gateway }}:443 check ssl verify none
-	 {% endfor %}
+   {% for gateway in gateways %}
+   server  AAP{{ loop.index }} {{ gateway }}:443 check ssl verify none
+   {% endfor %}

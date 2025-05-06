@@ -34,4 +34,3 @@
     ANSIBLE_BECOME: 'True'
     ANSIBLE_HOST_KEY_CHECKING: 'False'
     ANSIBLE_BECOME_USER: 'root'
-  notify: restart LoadBalacner

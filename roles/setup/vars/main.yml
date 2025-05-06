@@ -8,20 +8,19 @@ automationcontroller_hosts:
 gateway_hosts:
   - name: "gateway1.onetech.com"
   - name: "gateway2.onetech.com"
-database_hostname: "database.onetech.com"
+
+database_hostname: "{{ groups['database'][0] }}"
 
 # Credentials for registry
 registry_url: "registry.redhat.io"
 registry_username: "!vault |\n          $ANSIBLE_VAULT;1.1;AES256\n          35376532316361326364653636333065663431343862366437343437643136376161653735323034\n          3433356165656536653230396637366633376262616533360a376537386630346533306130666630\n          36333565623332353035383163623330633835393831373564323139646136653361336434636337\n          6436316435376532610a663661666530626330353134646435383266363936303636656533633931\n          62353366626366363061323333336166636462396462313438663437356463373662"
 registry_password: "!vault |\n          $ANSIBLE_VAULT;1.1;AES256\n          34373963613631346433343663373335353236346637323864316663643937386332643034636463\n          6261613432323261623735363733336561623161313265640a313034666332643538346566343235\n          61326530623432353266343266306236306438336630343036316665666239396235393436633835\n          6261363330366639640a396438393634336661343466656430376539636633336365353938656130\n          3834"
 
-# credentials
 
 # PostgreSQL settings
 pg_host: "{{ database_hostname }}"
 pg_database: "awx"
 pg_username: "awx"
-#pg_password: "redhat123"
 pg_port: 5432
 pg_sslmode: "prefer"
 
@@ -29,10 +28,9 @@ pg_sslmode: "prefer"
 automationgateway_pg_host: "{{ database_hostname }}"
 automationgateway_pg_database: "automationgateway"
 automationgateway_pg_username: "automationgateway"
-#automationgateway_pg_password: "redhat123"
 automationgateway_pg_port: 5432
 automationgateway_pg_sslmode: "prefer"
-automationgateway_main_url: "https://aap-vip"
+automationgateway_main_url: "https://aap-vip.com"
 
 # Other settings
 ansible_user: "cloud-user"

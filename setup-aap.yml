@@ -1,7 +1,10 @@
 ---
 - name: Playbook Prepare all nodes
-  hosts: all
+  hosts: aapservers
   gather_facts: true
+  vars:
+    aap_vip: 10.0.0.94
+    db_vip: 10.112.62.25
   roles:
     #- subscription
     - common
@@ -9,22 +12,18 @@
     - ntp
     - ssh
 
-#- name: Install PostgreSQL on Controller
-#  hosts: controller
-#  gather_facts: true
-#  roles:
-#    - postgresql-15
+- name: Install HAProxy and Keepalived LoadBalancer nodes
+  hosts: Loadbalancer
+  gather_facts: true
+  vars:
+    aap_vip: 10.0.0.94
+  roles:
+    - keepalived
+    - haproxy
 
-- name: Install AAP on Controller
-  hosts: controller
+- name: Install AAP on Controller play as a control node
+  hosts: "{{ groups['controller'][0] }}"
   gather_facts: true
   roles:
     - aap-2.5_install
     - setup
-
-- name: Install HAProxy and Keepalived LoadBalancer nodes
-  hosts: Loadbalancer
-  gather_facts: true
-  roles:
-    - keepalived
-    - haproxy
