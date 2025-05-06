@@ -25,7 +25,7 @@
     line: 'required_ram: 2400'
 
 - name: Execute the setup.sh script with custom environment variables
-  ansible.builtin.shell: /opt/ansible-automation-platform/installer/setup.sh
+  ansible.builtin.shell: /opt/ansible-automation-platform/installer/setup.sh -- -vvv
   delegate_to: controller.onetech.com
   remote_user: "{{ ansible_user }}"
   environment:

@@ -12,12 +12,6 @@
     - ntp
     - ssh
 
-#- name: Install PostgreSQL on Controller
-#  hosts: controller
-#  gather_facts: true
-#  roles:
-#    - postgresql-15
-
 - name: Install HAProxy and Keepalived LoadBalancer nodes
   hosts: Loadbalancer
   gather_facts: true
