@@ -1,0 +1,22 @@
+#cloud-config
+
+users:
+  - name: khalil
+    ssh-authorized-keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILJiQrPJ5wgipl88xpRJOF8HuE3NjsiV5zyBkyivZHnL PC@Server0000
+    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+    groups: [wheel]
+    shell: /bin/bash
+
+  - name: cloud-user
+    ssh-authorized-keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILJiQrPJ5wgipl88xpRJOF8HuE3NjsiV5zyBkyivZHnL PC@Server0000
+    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+    groups: [wheel]
+    shell: /bin/bash
+
+system_info:
+  default_user:
+    name: cloud-user
+    groups: [wheel]
+    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
