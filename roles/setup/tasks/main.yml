@@ -4,6 +4,22 @@
   ansible.builtin.include_vars:
     file: ../vars/credentials.yml
 
+- name: Open port 443/tcp.
+  ansible.posix.firewalld:
+    port: "443/tcp"
+    state: enabled
+    permanent: true
+    immediate: true
+  notify: restart firwalld
+
+- name: Open service https.
+  ansible.posix.firewalld:
+    service: https
+    state: enabled
+    permanent: true
+    immediate: true
+  notify: restart firwalld
+
 - name: Generate AAP inventory file
   ansible.builtin.template:
     src: inventory.j2
@@ -24,9 +40,14 @@
     regexp: '^required_ram: 7400'
     line: 'required_ram: 2400'
 
+
 - name: Execute the setup.sh script with custom environment variables
   ansible.builtin.shell: /opt/ansible-automation-platform/installer/setup.sh -- -vvv
+<<<<<<< HEAD
   delegate_to: controller.onetech.com
+=======
+  delegate_to: "{{ groups['controller'][0] }}"
+>>>>>>> 6397fa1 (add job template for test AAP with RbbitMQ)
   remote_user: "{{ ansible_user }}"
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"

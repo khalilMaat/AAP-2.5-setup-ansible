@@ -10,6 +10,20 @@
     name:
       - lsof
       - bash-completion
+      - glibc
+      - glibc-common
+      - glibc-all-langpacks
+
+#======== Configure system locale ============#
+- name: Set default locale to en_US.UTF-8 in locale.conf
+  ansible.builtin.lineinfile:
+    path: /etc/locale.conf
+    line: 'LANG=en_US.UTF-8'
+    create: yes
+
+- name: Source the locale.conf to apply immediately
+  ansible.builtin.shell: |
+    source /etc/locale.conf
 
 - name: Enable a BaseOS and AppStream repository.
   community.general.rhsm_repository:

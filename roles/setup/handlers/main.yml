@@ -1,2 +1,11 @@
 ---
 # handlers file for setup
+<<<<<<< HEAD
+=======
+- name: restart firwalld
+  ansible.builtin.systemd:
+    state: restarted
+    daemon_reload: true
+    name: firewalld
+    enabled: true
+>>>>>>> 6397fa1 (add job template for test AAP with RbbitMQ)

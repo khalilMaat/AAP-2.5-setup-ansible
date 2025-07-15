@@ -28,9 +28,9 @@ vrrp_instance VI_1 {
         auth_pass 1111
     }
 
-    unicast_src_ip {{ hostvars["gateway2.onetech.com"].ansible_facts['eth0']['ipv4']['address'] }} # The IP address of this machine
+    unicast_src_ip {{ hostvars[groups['gateway'][1]].ansible_facts['eth0']['ipv4']['address'] }} # The IP address of this machine
     unicast_peer {
-        {{ hostvars["gateway1.onetech.com"].ansible_facts['eth0']['ipv4']['address'] }}  # The IP address of peer machines
+        {{ hostvars[groups['gateway'][0]].ansible_facts['eth0']['ipv4']['address'] }}  # The IP address of peer machines
     }
 
     virtual_ipaddress {

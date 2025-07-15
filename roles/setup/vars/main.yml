@@ -2,14 +2,19 @@
 # vars file for setup
 
 automationcontroller_hosts:
-  - name: "controller.onetech.com"
+  - name: "{{ groups['controller'][0] }}"
     node_type: "hybrid"
     receptor_listener: True
 gateway_hosts:
+<<<<<<< HEAD
   - name: "gateway1.onetech.com"
   - name: "gateway2.onetech.com"
 
 database_hostname: "{{ groups['database'][0] }}"
+=======
+  - name: "{{ groups['gateway'][0] }}"
+  - name: "{{ groups['gateway'][1] }}"
+>>>>>>> 6397fa1 (add job template for test AAP with RbbitMQ)
 
 # Credentials for registry
 registry_url: "registry.redhat.io"
@@ -18,14 +23,14 @@ registry_password: "!vault |\n          $ANSIBLE_VAULT;1.1;AES256\n          343
 
 
 # PostgreSQL settings
-pg_host: "{{ database_hostname }}"
+pg_host: "{{ groups['database'][0] }}"
 pg_database: "awx"
 pg_username: "awx"
 pg_port: 5432
 pg_sslmode: "prefer"
 
 # automationGateway settings
-automationgateway_pg_host: "{{ database_hostname }}"
+automationgateway_pg_host: "{{ groups['database'][0] }}"
 automationgateway_pg_database: "automationgateway"
 automationgateway_pg_username: "automationgateway"
 automationgateway_pg_port: 5432

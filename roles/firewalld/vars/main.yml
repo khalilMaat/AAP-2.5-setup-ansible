@@ -3,7 +3,6 @@
 ports:
   - "80/tcp"
   - "22/tcp"
-  - "443/tcp"
   - "5432/tcp"
   - "6379/tcp"
   - "8443/tcp"
@@ -11,10 +10,10 @@ ports:
   - "27199/tcp"
   - "50051/tcp"
   - "8080/tcp"
+  - "9443/tcp"
 
 services:
   - postgresql
   - ssh
   - ntp
-  - https
   - http

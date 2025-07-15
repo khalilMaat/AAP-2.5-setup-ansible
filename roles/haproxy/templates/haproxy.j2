@@ -65,8 +65,8 @@ defaults
 # main frontend which proxys to the backends
 #---------------------------------------------------------------------
 frontend main
-   bind {{ aap_vip }}:80
-   redirect scheme https code 301 if !{ ssl_fc }
+   bind {{ aap_vip }}:9443
+	 mode tcp
    default_backend app
 
 #---------------------------------------------------------------------
@@ -81,7 +81,13 @@ listen stats
 # round robin balancing between the various backends
 #---------------------------------------------------------------------
 backend app
+   mode tcp
+   option ssl-hello-chk
    balance roundrobin
    {% for gateway in gateways %}
+<<<<<<< HEAD
    server  AAP{{ loop.index }} {{ gateway }}:443 check ssl verify none
+=======
+   server  AAP{{ loop.index }} {{ gateway }}:443 check
+>>>>>>> 6397fa1 (add job template for test AAP with RbbitMQ)
    {% endfor %}

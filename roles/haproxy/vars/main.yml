@@ -1,7 +1,7 @@
 ---
 # vars file for haproxy
 gateways:
-  - gateway1.onetech.com
-  - gateway2.onetech.com
+  - "{{ groups['gateway'][0] }}"
+  - "{{ groups['gateway'][1] }}"
 
 #aap_vip: 10.0.0.94

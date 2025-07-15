@@ -23,6 +23,9 @@ Uses roles to maintain clean, reusable, and testable code structure
 
 Start playbook:
 > ansible-playbook setup-aap.yml --vault-password-file pass.txt
+<<<<<<< HEAD
 
 ⚙️ License
 Khalil Maatoug 2025 OTBS
+=======
+>>>>>>> 6397fa1 (add job template for test AAP with RbbitMQ)

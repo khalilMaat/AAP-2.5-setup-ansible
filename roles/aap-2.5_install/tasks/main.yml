@@ -5,3 +5,30 @@
     name: ansible-automation-platform-installer
     enablerepo: ansible-automation-platform-2.5-for-rhel-9-x86_64-rpms
     state: present
+
+#- name: Install PostgreSQL YUM repository RPM
+#  ansible.builtin.yum:
+#    name: "{{ postgresql_repo_url }}"
+#    disable_gpg_check: yes
+#    state: present
+ 
+#- name: Disable the built-in PostgreSQL module
+#  ansible.builtin.command: dnf -qy module disable postgresql
+
+#- name: Install PostgreSQL
+#  ansible.builtin.yum:
+#    name:
+#      - postgresql15-server
+#      - postgresql15-contrib
+
+- name: Ensure CA cert directory exists
+  ansible.builtin.file:
+    path: /etc/pki/ca-trust/source/anchors/
+    state: directory
+  when: "inventory_hostname in groups['gateway']"
+
+- name: Run update-ca-trust from /etc/pki/ca-trust/source/anchors/
+  ansible.builtin.command: sudo update-ca-trust extract
+  args:
+    chdir: /etc/pki/ca-trust/source/anchors/
+  when: "inventory_hostname in groups['gateway']"

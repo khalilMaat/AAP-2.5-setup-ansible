@@ -29,3 +29,38 @@
     immediate: true
   loop: "{{ services }}"
   notify: restart firwalld
+
+- name: Enable rule from gw1
+  ansible.posix.firewalld:
+    rich_rule: "{{ item }}"
+    state: enabled
+    permanent: true
+    immediate: yes
+  when:
+    - "inventory_hostname == groups['gateway'][0]"
+    - "groups['gateway'] | length >= 2"
+  loop:
+    - 'rule family="ipv4" source address="{{ hostvars[groups[''gateway''][1]].ansible_facts[''eth1''][''ipv4''][''address''] }}" port protocol="tcp" port="443" accept'
+    - 'rule family="ipv4" source address="{{ hostvars[groups[''controller''][0]].ansible_facts[''eth1''][''ipv4''][''address''] }}" port protocol="tcp" port="443" accept'
+
+- name: Enable rule from gw2                        
+  ansible.posix.firewalld:                           
+    rich_rule: "{{ item }}"
+    state: enabled                                   
+    permanent: true                                  
+    immediate: yes                                   
+  when:
+    - "inventory_hostname == groups['gateway'][1]"
+    - "groups['gateway'] | length >= 2"
+  loop:
+    - 'rule family="ipv4" source address="{{ hostvars[groups[''gateway''][0]].ansible_facts[''eth1''][''ipv4''][''address''] }}" port protocol="tcp" port="443" accept'
+    - 'rule family="ipv4" source address="{{ hostvars[groups[''controller''][0]].ansible_facts[''eth1''][''ipv4''][''address''] }}" port protocol="tcp" port="443" accept'
+
+- name: Remove https port from gateways External
+  ansible.posix.firewalld:
+    port: "443/tcp"
+    permanent: yes
+    immediate: yes
+    state: absent
+  notify: reload firewall
+  when: "inventory_hostname == groups['gateway']"

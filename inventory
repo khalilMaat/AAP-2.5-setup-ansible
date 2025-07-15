@@ -6,7 +6,7 @@ gateway2.onetech.com
 controller.onetech.com
 
 [database]
-database.onetech.com
+database.onetech.com ansible_host=10.112.62.25
 
 [Loadbalancer]
 gateway1.onetech.com

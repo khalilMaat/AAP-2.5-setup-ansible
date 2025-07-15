@@ -3,7 +3,14 @@
 
 # AAP project
 {% for host in groups['aapservers'] %}
+<<<<<<< HEAD
 {{ hostvars[host].ansible_facts['eth1']['ipv4']['address'] }} {{ host }}
 {% endfor %}
 {{ aap_vip }} aap-vip.com
 {{ db_vip }} {{ groups['database'][0] }} 
+=======
+{{ hostvars[host].ansible_facts['eth1']['ipv4']['address'] }} {{ host }} {{ hostvars[host].ansible_facts['hostname'] }}
+{% endfor %}
+{{ aap_vip }} aap-vip.com
+{{ db_vip }} {{ groups['database'][0] }}
+>>>>>>> 6397fa1 (add job template for test AAP with RbbitMQ)
