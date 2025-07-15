@@ -1,0 +1,9 @@
+---
+- name: Playbook check servers details
+  hosts: localhost
+  gather_facts: true
+  tasks:
+    - name: check os name
+      ansible.builtin.setup:
+        filter:
+          - 'ansible_distribution'
