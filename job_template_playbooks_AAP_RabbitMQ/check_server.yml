@@ -1,13 +1,9 @@
 ---
-- name: Playbook check servers details
+- name: Playbook to check VM hostname
   hosts: localhost
   gather_facts: true
-  tasks:
-    - name: check os name
-      ansible.builtin.setup:
-        filter:
-          - 'ansible_distribution'
 
-    - name: Show var
+  tasks:
+    - name: Display the hostname of the VM
       debug:
-        var: "{{ ansible_facts['hostname'] }}" 
+        var: ansible_facts['hostname']
