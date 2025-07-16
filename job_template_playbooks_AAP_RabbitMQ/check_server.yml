@@ -6,17 +6,17 @@
   tasks:
     - name: Display VM system details
       debug:
-        msg: Hostname: {{ ansible_facts['hostname'] }}
+        msg: "Hostname: {{ ansible_facts['hostname'] }}"
 
     - name: Display VM system details
       debug:
-        msg: OS Distribution: {{ ansible_facts['distribution'] }}
+        msg: "OS Distribution: {{ ansible_facts['distribution'] }}"
 
     - name: Display VM system details
       debug:
-        msg: Architecture: {{ ansible_facts['architecture'] }}
+        msg: "Architecture: {{ ansible_facts['architecture'] }}"
 
     - name: Display VM system details
       debug:
-        msg: Kernel Version: {{ ansible_facts['kernel'] }}
+        msg: "Kernel Version: {{ ansible_facts['kernel'] }}"
           
