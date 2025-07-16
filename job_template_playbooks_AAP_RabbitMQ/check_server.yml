@@ -12,4 +12,3 @@
           OS Version: {{ ansible_facts['distribution_version'] }}
           Architecture: {{ ansible_facts['architecture'] }}
           Kernel Version: {{ ansible_facts['kernel'] }}
-          Primary IP: {{ ansible_facts['default_ipv4']['address'] }}
