@@ -10,4 +10,4 @@
 
     - name: Show var
       debug:
-        var: {{ ansible_facts['hostname'] }} 
+        var: "{{ ansible_facts['hostname'] }}" 
