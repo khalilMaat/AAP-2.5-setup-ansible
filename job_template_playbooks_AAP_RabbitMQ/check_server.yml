@@ -7,3 +7,7 @@
       ansible.builtin.setup:
         filter:
           - 'ansible_distribution'
+
+    - name: Show var
+      debug:
+        var: {{ ansible_facts['hostname'] }} 
