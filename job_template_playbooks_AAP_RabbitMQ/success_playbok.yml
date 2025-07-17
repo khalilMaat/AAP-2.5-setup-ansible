@@ -1,0 +1,8 @@
+---
+- name: PLaybook on Success
+  hosts: localhost
+  gather_fatcs: true
+  tasks:
+    - name: Show Success Message
+      debug:
+        msg: "Playbook End Successfully !!!!"
