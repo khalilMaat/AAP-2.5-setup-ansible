@@ -1,0 +1,8 @@
+---
+- name: Playbook On Failure
+  hosts: localhost
+  gather_facts: true
+  tasks:
+    - name: Task On Failure
+      debug:
+        msg: "Playbook End on Failure !!!"
