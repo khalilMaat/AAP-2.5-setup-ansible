@@ -10,11 +10,18 @@
     cloud_init: "{{ cloud_init | default('undefined') }}"
 
   tasks:
-    - name: Show VM configuration
+    - name: Show VM Name
       debug:
-        msg: |
-          VM Name: {{ vm_name }}
-          OS: {{ vm_os }}
-          Flavor: {{ vm_flavor }}
-          Cloud Init:
-          {{ cloud_init }}
+        msg: "VM Name: {{ vm_name }}"
+        
+    - name: Show OS Name
+      debug:
+        msg: "OS: {{ vm_os }}"
+
+    - name: Show Flavor
+      debug:
+        msg: "Flavor: {{ vm_flavor }}"
+
+    - name: Show Cloud init
+      debug:
+        msg: {{ cloud_init }}
