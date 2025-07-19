@@ -24,4 +24,4 @@
 
     - name: Show Cloud init
       debug:
-        msg: {{ cloud_init }}
+        msg: "{{ cloud_init }}"
