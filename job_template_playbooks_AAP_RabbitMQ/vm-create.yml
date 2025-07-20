@@ -1,0 +1,28 @@
+---
+- name: Provision VM on AWS using Terraform
+  hosts: localhost
+  gather_facts: false
+
+  vars:
+    vm_name: "{{ vm_name }}"
+    vm_os: "{{ vm_os }}"
+    vm_flavor: "{{ vm_flavor }}"
+    cloud_init: "{{ cloud_init }}"
+
+  tasks:
+    - name: Clone the Terraform repo
+      ansible.builtin.git:
+        repo: https://github.com/khalilMaat/Terraform-provising-vms.git
+        dest: /tmp/Terraform-provising-vms
+        force: yes
+
+    - name: Run terraform apply
+      community.general.terraform:
+        project_path: /tmp/Terraform-provising-vms
+        state: present
+        force_init: true
+        variables:
+          vm_name: "{{ vm_name }}"
+          vm_os: "{{ vm_os }}"
+          vm_flavor: "{{ vm_flavor }}"
+          cloud_init: "{{ cloud_init }}"
